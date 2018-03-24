@@ -26,26 +26,6 @@ QUnit.test("toBin f is 1111", function(assert) {
 	assert.equal(toBin('f'), '1111');
 });
 
-QUnit.test("and 1100 0011 is 0000", function (assert) {
-	assert.equal(andOp('1100', '0011'), '0000');
-});
-
-QUnit.test("and 1100 0111 is 0100", function (assert) {
-	assert.equal(andOp('1100', '0111'), '0100');
-});
-
-QUnit.test("inv 1100 is 0011", function (assert) {
-	assert.equal(invert('1100'), '0011');
-});
-
-QUnit.test("bsum 0001 + 0001 is 0010", function (assert) {
-	assert.equal(bsum('0001', '0001'), '0010');
-});
-
-QUnit.test("bsum 0101 + 0001 is 0110", function (assert) {
-	assert.equal(bsum('0101', '0001'), '0110');
-});
-
 QUnit.test("dsum 1 + 1 is 2", function (assert) {
 	assert.equal(dsum('1', '1'), '2');
 });
@@ -106,11 +86,11 @@ QUnit.test("dsub 1000000000000000 - 1 = 999999999999999", function (assert) {
 });
 
 QUnit.test("conv 01", function (assert) {
-	assert.equal(convertb('1'), '1');
+	assert.equal(convert('0000000000000001'), '1');
 });
 
 QUnit.test("conv ff", function (assert) {
-	assert.equal(convertb('ff'), '255');
+	assert.equal(convert('0000000000000ff'), '255');
 });
 
 QUnit.test("conv bd0a-be5d26ff82a0", function (assert) {

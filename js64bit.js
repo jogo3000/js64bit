@@ -1,32 +1,3 @@
-var mask = '1000000000000000000000000000000000000000000000000000000000000000';
-var mask_ = '0111111111111111111111111111111111111111111111111111111111111111';
-
-function invert(a) {
-	var res = '';
-	for (var i = 0; i < a.length; i++) {
-		var x;
-		if (a[i] === '1') {
-			x = '0';
-		} else {
-			x = '1';
-		}
-		res = res + x;
-	}
-	return res;
-}
-
-function andOp(a, b) {
-	var res = '';
-	for (var i = 0; i < a.length; i++) {
-		if (a[i] === '1' && b[i] === '1') {
-			res += '1';
-		} else {
-			res += '0';
-		}
-	}
-	return res;
-}
-
 function leftPad(n, i) {
 	var part = n;
 	while (part.length < i)
@@ -43,41 +14,6 @@ function toBin(inp) {
 	return bin;
 }
 
-function bsum(a, b) {
-	var carry = false;
-	var res = '';
-	for (var i = a.length - 1; i >= 0; i--) {
-		var an = a[i];
-		var bn = b[i];
-		var rn;
-		if (!carry) {
-			if (an === '0' && bn === '0') {
-				rn = '0';
-			} else if (an === '1' && bn === '1') {
-				rn = '0';
-				carry = true;
-			} else {
-				rn = '1';
-			}
-		} else {
-			if (an === '0' && bn === '0') {
-				rn = '1';
-				carry = false;
-			} else if (an === '1' && bn === '1') {
-				rn = '1';
-				carry = true;
-			} else {
-				rn = '0';
-				carry = true;
-			}
-		}
-		res = rn + res;
-	}
-	if (carry) {
-		res = '1' + res;
-	}
-	return res;
-}
 function maxlen(a, b) {
 	if (a.length > b.length)
 		return a.length;
@@ -156,19 +92,8 @@ var vals = [ "1", "2", "4", "8", "16", "32", "64", "128", "256", "512", "1024",
 		"4611686018427387904", "9223372036854775808" ];
 
 /**
- * -(val & mask) + (val & ~mask)
+ * https://en.wikipedia.org/wiki/Two%27s_complement#Converting_from_two's_complement_representation
  */
-function convertb(a) {
-	var binVal = toBin(a);
-	var res = '0';
-	for (var i = binVal.length - 1; i >= 0; i--) {
-		if (binVal[i] === '1') {
-			res = dsum(res, vals[binVal.length - (i + 1)])
-		}
-	}
-	return res;
-}
-
 function convert(a) {
 	var binVal = toBin(a);
 	var res = '0';
@@ -178,7 +103,7 @@ function convert(a) {
 		}
 	}
 	// -An-1 * 2^(N-1)
-	if (binVal[0]) {
+	if (binVal[0] === '1') {
 		res = dsub(res, vals[63]);
 	}
 	return res;
