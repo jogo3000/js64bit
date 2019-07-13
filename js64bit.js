@@ -1,10 +1,22 @@
+/**
+   Uses carry arithmetic on numbers represented as decimal strings to be able to count with large
+   numbers inside Javascript. In Javascript, all numbers are represented as 64 bit floating point
+   numbers which makes it impossible to do precise math on large numbers.
+*/
+
+/*
+  Left pads n with zeros to the length of i
+ */
 function leftPad(n, i) {
-	var part = n;
-	while (part.length < i)
-		part = '0' + part;
-	return part;
+    var part = n;
+    while (part.length < i)
+        part = '0' + part;
+    return part;
 }
 
+/*
+  Takes a number in hex string fomat and returns the binary representation
+*/
 function toBin(inp) {
 	var bin = '';
 	for (var i = 0; i < inp.length; i++) {
@@ -14,12 +26,21 @@ function toBin(inp) {
 	return bin;
 }
 
+/*
+  For sequences a and b, returns the length of the longer sequence
+*/
 function maxlen(a, b) {
 	if (a.length > b.length)
 		return a.length;
 	return b.length;
 }
 
+/*
+  Calculates a + b using carry arithmetic
+
+  Arguments a and b must be decimal strings.
+  Result is a decimal string
+*/
 function dsum(a, b) {
 	var carry = 0;
 	var res = '';
@@ -42,6 +63,12 @@ function dsum(a, b) {
 	return res;
 }
 
+/*
+  Calculates abs(a - b) using carry arithmetic
+
+  Arguments a and b must be decimal strings
+  Result is a decimal string
+*/
 function dsub(a, b) {
 	var numbers = maxlen(a, b);
 	a = leftPad(a, numbers);
@@ -76,6 +103,9 @@ function dsub(a, b) {
 	return res;
 }
 
+/*
+  Decimal values of single bits in 64 bit two's complement representation.
+*/
 var vals = [ "1", "2", "4", "8", "16", "32", "64", "128", "256", "512", "1024",
 		"2048", "4096", "8192", "16384", "32768", "65536", "131072", "262144",
 		"524288", "1048576", "2097152", "4194304", "8388608", "16777216",
